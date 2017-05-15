@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
@@ -28,22 +29,7 @@
 					</tr>
 				</table>
 			</h3>
-			<ul class="list_activity">
-				<li class="list_element">
-					1
-				</li>
-				<li class="list_element">
-					2
-				</li>
-				<li class="list_element">
-					3
-				</li>
-				<li class="list_element">
-					4
-				</li>
-				<li class="list_element">
-					5
-				</li>
+			<ul id="tareas_pendientes" class="list_activity">
 			</ul>
 		</div>
 
@@ -62,6 +48,9 @@
 			<button class="close_dialog">
 				Cerrar
 			</button>
+		</div>
+		<div class="logo_carga">
+			<img id="cargando" src="assets/cargando.gif"/>
 		</div>
 	</body>
 </html>
