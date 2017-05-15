@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<title>
+			Actividades
+		</title>
+	</head>
+	<body>
+		<div class="contenedor_principal">
+			<h3 class="title">
+				<table class="title_container">
+					<tr>
+						<td width="10%"></td>
+						<td align="center">
+							<b>
+								Actividades pendientes
+							</b>
+						</td>
+						<td width="10%">
+							<button class="btn_header" id="nueva_actividad_button">
+								<b>
+									+
+								</b>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</h3>
+			<ul class="list_activity">
+				<li class="list_element">
+					1
+				</li>
+				<li class="list_element">
+					2
+				</li>
+				<li class="list_element">
+					3
+				</li>
+				<li class="list_element">
+					4
+				</li>
+				<li class="list_element">
+					5
+				</li>
+			</ul>
+		</div>
+
+		<div class="modal_background">
+		</div>
+		<div class="modal_box" id="nueva_actividad">
+			<textarea id="descripcion_actividad" placeholder="Descripcion"></textarea>
+			<button class="btn" id="crear_actividad">
+				Continuar
+			</button>
+			<button class="btn close_dialog">
+				Cerrar
+			</button>
+		</div>
+		<div class="modal_box" id="gestionar_tarea">
+			<button class="close_dialog">
+				Cerrar
+			</button>
+		</div>
+	</body>
+</html>
