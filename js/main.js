@@ -35,6 +35,11 @@ $(document).ready(function(){
 		$(".modal_background").addClass("active");
 	});
 
+	$("#nueva_info_aplicacion").click(function(){
+		$("#nosotros").addClass("active");
+		$(".modal_background").addClass("active");
+	});
+
 	$("#crear_actividad").click(function(){
 		if ($('#descripcion_actividad').val() == "") {
 			alert("Debe ingresar la descripcion de la tarea para continuar");
