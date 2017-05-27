@@ -2,7 +2,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<title>
 			Actividades
@@ -10,33 +10,37 @@
 	</head>
 	<body>
 		<div class="contenedor_principal">
-			<h3 class="title">
-				<table class="title_container">
-					<tr>
-						<td width="10%">
-							<button class="btn_header" id="nueva_info_aplicacion">
+			<div class="header">
+				<h3 class="title">
+					<table class="title_container">
+						<tr>
+							<td width="10%">
+								<button class="btn_header" id="nueva_info_aplicacion">
+									<b>
+										?
+									</b>
+								</button>
+							</td>
+							<td align="center">
 								<b>
-									?
+									Actividades pendientes
 								</b>
-							</button>
-						</td>
-						<td align="center">
-							<b>
-								Actividades pendientes
-							</b>
-						</td>
-						<td width="10%">
-							<button class="btn_header" id="nueva_actividad_button">
-								<b>
-									+
-								</b>
-							</button>
-						</td>
-					</tr>
-				</table>
-			</h3>
-			<ul id="tareas_pendientes" class="list_activity">
-			</ul>
+							</td>
+							<td width="10%">
+								<button class="btn_header" id="nueva_actividad_button">
+									<b>
+										+
+									</b>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</h3>
+			</div>
+			<div class="contenido">
+				<ul id="tareas_pendientes" class="list_activity">
+				</ul>
+			</div>
 		</div>
 
 		<div class="modal_background">
@@ -51,6 +55,27 @@
 			</button>
 		</div>
 		<div class="modal_box" id="gestionar_tarea">
+			<div id="div_descripcion"></div>
+			<div class="input_field">
+				<label for="cmbCalificacion">
+					Clasificaci&oacute;n:
+				</label>
+				<select id="cmbCalificacion">
+					<option value="0" selected> - Seleccione - </option>
+				</select>
+			</div>
+			<div class="input_field">
+				<label for="cmbCalificacion">
+					Fecha Ejecuci&oacute;n:
+				</label>
+				<input type="date" id="fecha_ejecucion" placeholder="Fecha Ejecuci&oacute;n">
+			</div>
+			<button class="btn blue" id="actualizar_actividad">
+				Continuar
+			</button>
+			<button class="btn green" id="actualizar_actividad">
+				Realizada
+			</button>
 			<button class="btn close_dialog">
 				Cerrar
 			</button>
