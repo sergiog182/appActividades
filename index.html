@@ -55,25 +55,31 @@
 			</button>
 		</div>
 		<div class="modal_box" id="gestionar_tarea">
+			<input type="hidden" value="0" id="idActividadGestionar">
 			<div id="div_descripcion"></div>
+			<hr>
 			<div class="input_field">
 				<label for="cmbCalificacion">
 					Clasificaci&oacute;n:
 				</label>
 				<select id="cmbCalificacion">
 					<option value="0" selected> - Seleccione - </option>
+					<option value="1"> Urgente - Importante </option>
+					<option value="2"> No urgente - Importante </option>
+					<option value="3"> Urgente - No importante </option>
+					<option value="4"> No urgente - No importante </option>
 				</select>
 			</div>
 			<div class="input_field">
-				<label for="cmbCalificacion">
+				<label for="fecha_ejecucion">
 					Fecha Ejecuci&oacute;n:
 				</label>
 				<input type="date" id="fecha_ejecucion" placeholder="Fecha Ejecuci&oacute;n">
 			</div>
-			<button class="btn blue" id="actualizar_actividad">
+			<button class="btn white" id="actualizar_actividad">
 				Continuar
 			</button>
-			<button class="btn green" id="actualizar_actividad">
+			<button class="btn white" id="finalizar_actividad">
 				Realizada
 			</button>
 			<button class="btn close_dialog">
