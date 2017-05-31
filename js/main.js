@@ -67,11 +67,18 @@ $(document).ready(function(){
 			alert("Debe ingresar la descripcion de la tarea para continuar");
 		} else {
 			$(".logo_carga").addClass("active");
+
+			var data = '{"Descripcion": "' + textoDescripcion + '", "FechaEjecucion": "", "IdActividad": "", "IdClasificacion": "", "IdEstado": "1", "IdUsuario": "1"}';
+	        var bytes = [];
+
+	        for (var i = 0; i < data.length; ++i) {
+	            bytes.push(data.charCodeAt(i));
+	        }
+
 			$.ajax({
 				url: url + "Actividades",
 				method: 'POST',
-				contentType: "application/json; charset=utf-8",
-				data: {"Descripcion": textoDescripcion, "FechaEjecucion": "", "IdActividad": 0, "IdClasificacion": "", "IdEstado": "", "IdUsuario": "1"},
+				data: { objActividad: data },
 				success: function(data){
 					var datos = JSON.parse(JSON.stringify(data));
 					var html = '<li class="list_element" data-actividad="' + datos.IdActividad + '" data-clasificacion="0" data-fechaEjecucion=""> ' + $('#descripcion_actividad').val() + ' <hr id="vertical_' + datos.IdActividad + '" class="vertical white"/></li>';
@@ -107,34 +114,27 @@ $(document).ready(function(){
 	});
 
 	$("#actualizar_actividad").click(function(){
-		var descripcion = $('#div_descripcion').innerHTML;
+		var descripcion = $('#div_descripcion').html();
 		var actividad = $('#idActividadGestionar').val();
 		var calificacion = $('#cmbCalificacion').val();
 		var fechaEjecucion = $('#fecha_ejecucion').val();
 
-		switch(calificacion) {
-			case "1": color = "red";
-					break;
-			case "2": color = "green";
-					break;
-			case "3": color = "yellow";
-					break;
-			case "4": color = "blue";
-					break;
-			default: color = "white";
-					break;
-		}
-		console.log('{"Descripcion": "' + descripcion + '", "FechaEjecucion": "' + fechaEjecucion + '", "IdActividad": "' + actividad + '", "IdClasificacion": "' + calificacion + '", "IdEstado": "1", "IdUsuario": "1"}');
-		document.getElementById("vertical_" + actividad).className = "vertical " + color;
-		$(".logo_carga").removeClass("active");
-		$(".modal_background").removeClass("active");
-		$(".modal_box").removeClass("active");
-		/*
-		$.ajax({
-			url: url + "Actividades",
-			method: 'PUT',
-			data: {"Descripcion": descripcion, "FechaEjecucion": fechaEjecucion, "IdActividad": actividad, "IdClasificacion": calificacion, "IdEstado": "1", "IdUsuario": "1"},
-			success: function(data){
+		var partesFecha = fechaEjecucion.split('-');
+		var fechaFinal = partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0]; 
+
+		console.log(JSON.stringify('{"Descripcion": "", "FechaEjecucion": "' + fechaFinal + '", "IdActividad": "' + actividad + '", "IdClasificacion": "' + calificacion + '", "IdEstado": "3", "IdUsuario": "1"}'));
+		var data = JSON.stringify('{"Descripcion": "", "FechaEjecucion": "' + fechaFinal + '", "IdActividad": "' + actividad + '", "IdClasificacion": "' + calificacion + '", "IdEstado": "3", "IdUsuario": "1"}');
+        var bytes = [];
+
+        for (var i = 0; i < data.length; ++i) {
+            bytes.push(data.charCodeAt(i));
+        }
+
+        $.ajax({
+            url: url + "Actividades",
+            type: "PUT",
+            data: { objActividad: data },
+            success: function(data){
 				var color = "";
 				switch(calificacion) {
 					case "1": color = "red";
@@ -157,7 +157,7 @@ $(document).ready(function(){
 				alert(errorServer);
 				$(".logo_carga").removeClass("active");
 			}
-		});*/
+        });
 	});
 
 });
