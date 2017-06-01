@@ -1,3 +1,9 @@
+.contenedor
+{
+	display: none;
+	text-align: center;
+}
+
 .header
 {
 	position: fixed;
@@ -195,6 +201,7 @@
 
 input[type="text"],
 input[type="date"],
+input[type="password"],
 textarea,
 select
 {
@@ -203,4 +210,19 @@ select
     padding: 5px;
     box-sizing: border-box;
     margin-top: 10px;
+}
+
+.principal_image
+{
+	width: 80%;
+	text-align: center;
+	margin-left: 10%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.principal_image img
+{
+	width: 150px;
+	height: 150px;
 }
