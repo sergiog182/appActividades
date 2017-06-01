@@ -1,7 +1,11 @@
 var url = "http://25.8.54.211/WsActividades/";
-var errorServer = "Ocurrio un error consultando los datos del servidor";
+var errorServer = "Ocurrió un error consultando los datos del servidor";
+var appName = "Programador";
+var btnAceptar = "Aceptar";
 
 $(document).ready(function(){
+	$('#nombreApp').innerHtml = appName;
+
 	if (localStorage['usuario'] != undefined && localStorage['usuario'] != null && localStorage['usuario'] != "") {
 		$(".logo_carga").addClass("active");
 		$("#contenedor_principal").addClass('active');
@@ -36,7 +40,7 @@ $(document).ready(function(){
 				
 			},
 			error: function(error){
-				alert(errorServer);
+				navigator.notification.alert(errorServer, null, appName, btnAceptar);
 				$(".logo_carga").removeClass("active");
 			}
 		});
@@ -63,7 +67,7 @@ $(document).ready(function(){
 	$("#crear_actividad").click(function(){
 		var textoDescripcion = $('#descripcion_actividad').val();
 		if (textoDescripcion == "") {
-			alert("Debe ingresar la descripcion de la tarea para continuar");
+			navigator.notification.alert("Debe ingresar la descripción de la tarea para continuar", null, appName, btnAceptar);
 		} else {
 			$(".logo_carga").addClass("active");
 
@@ -83,7 +87,7 @@ $(document).ready(function(){
 					$(".modal_box").removeClass("active");
 				},
 				error: function(){
-					alert(errorServer);
+					navigator.notification.alert(errorServer, null, appName, btnAceptar);
 					$(".logo_carga").removeClass("active");
 				}
 			});
@@ -156,7 +160,7 @@ $(document).ready(function(){
 				$(".modal_box").removeClass("active");
 			},
 			error: function(){
-				alert(errorServer);
+				navigator.notification.alert(errorServer, null, appName, btnAceptar);
 				$(".logo_carga").removeClass("active");
 			}
         });
@@ -180,7 +184,7 @@ $(document).ready(function(){
 				$(".modal_box").removeClass("active");
 			},
 			error: function(){
-				alert(errorServer);
+				navigator.notification.alert(errorServer, null, appName, btnAceptar);
 				$(".logo_carga").removeClass("active");
 			}
         });
@@ -210,10 +214,45 @@ $(document).ready(function(){
 				$(".modal_box").removeClass("active");
 			},
 			error: function(){
-				alert(errorServer);
+				navigator.notification.alert(errorServer, null, appName, btnAceptar);
 				$(".logo_carga").removeClass("active");
 			}
         });
+	});
+
+	$("#btn_registro").click(function(){
+		$("#registro").addClass("active");
+		$(".modal_background").addClass("active");
+	});
+
+	// Crear nuevo usuario
+	$("#registrar_usuario").click(function(){
+		var usuarioNuevo = $('#txtUsuarioNuevo').val();
+		var passwrodUno = $('#txtPassword').val();
+		var passwrodDos = $('#txtConfirmarPassword').val();
+		var emailUsuarionuevo = $('#txtEmailUsuarioNuevo').val();
+
+		if (usuarioNuevo != "" && passwrodUno != "" && passwrodDos != "" && emailUsuarionuevo != "") {
+			if (passwrodUno == passwrodDos) {
+				// Funcion crear nuevo usuario
+			} else {
+				navigator.notification.alert("Las contraseñas no coinciden, por favor validar", null, appName, btnAceptar);	
+			}
+		} else {
+			navigator.notification.alert("Ningún campo debe estar vacío, por favor validar", null, appName, btnAceptar);
+		}
+	});
+
+	// Funcion ingreso app
+	$("#btn_login").click(function(){
+		var userText = $('#user').val();
+		var passwrodText = $('#password').val();
+
+		if (userText != "" && passwrodText != "") {
+			
+		} else {
+			navigator.notification.alert("Valida tus datos de ingreso", null, appName, btnAceptar);
+		}
 	});
 
 });
