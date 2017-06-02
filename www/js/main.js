@@ -32,7 +32,7 @@ $(document).ready(function(){
 						default: color = "white";
 								break;
 					}
-					html += '<li class="list_element" id="actividad_' + datos[i].IdActividad + '" data-actividad="' + datos[i].IdActividad + '" data-clasificacion="' + datos[i].IdClasificacion + '" data-fecha="' + datos[i].FechaEjecucion + '"> ' + datos[i].Descripcion + ' <hr id="vertical_' + datos[i].IdActividad + '" class="vertical ' + color + '"/></li>';
+					html += '<li class="list_element" id="actividad_' + datos[i].IdActividad + '" data-actividad="' + datos[i].IdActividad + '" data-clasificacion="' + datos[i].IdClasificacion + '" data-fecha="' + datos[i].FechaEjecucion + '" data-descripcion="' + datos[i].Descripcion + '"> <table class="activity_container"><tr><td class="principal">' + datos[i].Descripcion + '</td><td class="secundario"><hr id="vertical_' + datos[i].IdActividad + '" class="vertical ' + color + '"/> </td></tr></table></li>';
 					i++;
 				}
 				$("#tareas_pendientes").html(html);
@@ -50,7 +50,7 @@ $(document).ready(function(){
 		});
 	}
 
-	if (localStorage['usuario'] != undefined && localStorage['usuario'] != null && localStorage['usuario'] != "") {
+	if (localStorage['usuario'] != undefined && localStorage['usuario'] != null && localStorage['usuario'] != "" && localStorage['usuario'] != 0) {
 		$("#contenedor_principal").addClass('active');
 		getActividades();
 	} else {
@@ -92,7 +92,7 @@ $(document).ready(function(){
 				data: { objActividad: data },
 				success: function(data){
 					var datos = JSON.parse(data);
-					var html = '<li class="list_element" id="actividad_' + datos.IdActividad + '" data-actividad="' + datos.IdActividad + '" data-clasificacion="0" data-fecha=""> ' + $('#descripcion_actividad').val() + ' <hr id="vertical_' + datos.IdActividad + '" class="vertical white"/></li>';
+					var html = '<li class="list_element" id="actividad_' + datos.IdActividad + '" data-actividad="' + datos.IdActividad + '" data-clasificacion="0" data-fecha="" data-descripcion="' + $('#descripcion_actividad').val() + '"> <table class="activity_container"><tr><td class="principal">' + $('#descripcion_actividad').val() + '</td><td class="secundario"> <hr id="vertical_' + datos.IdActividad + '" class="vertical white"/> </td></tr<</table></li>';
 					$("#tareas_pendientes").append(html);
 					$('#descripcion_actividad').val("");
 					$(".logo_carga").removeClass("active");
@@ -117,6 +117,7 @@ $(document).ready(function(){
 		var fechaEjecucion = $(this).attr("data-fecha");
 		var fechaFinal = "";
 		var descripcionActividad = $(this).html();
+		var textoActividad = $(this).attr("data-descripcion"); 
 
 		if (fechaEjecucion != "") {
 			var partesFecha = fechaEjecucion.split('/');
@@ -133,6 +134,7 @@ $(document).ready(function(){
 		$('#idActividadGestionar').val(actividad);
 		$('#cmbCalificacion').val(clasificacion);
 		$('#fecha_ejecucion').val(fechaFinal);
+		$('#textoDescripcionActualizar').val(textoActividad);
 
 		$("#gestionar_tarea").addClass("active");
 		$(".modal_background").addClass("active");
@@ -144,6 +146,7 @@ $(document).ready(function(){
 		var actividad = $('#idActividadGestionar').val();
 		var calificacion = $('#cmbCalificacion').val();
 		var fechaEjecucion = $('#fecha_ejecucion').val();
+		var descripcionActividad = $('#textoDescripcionActualizar').val();
 
 		var partesFecha = fechaEjecucion.split('-');
 		var fechaFinal = partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0]; 
@@ -170,6 +173,20 @@ $(document).ready(function(){
 							break;
 				}
 				document.getElementById("vertical_" + actividad).className = "vertical " + color;
+
+				// Crear actividad en calnedario
+				try {
+					var startDate = new Date(partesFecha[0], partesFecha[1] - 1, partesFecha[2], 10, 0, 0, 0, 0); // beware: month 0 = january, 11 = december
+				  	var endDate = new Date(partesFecha[0], partesFecha[1] - 1, partesFecha[2], 12, 0, 0, 0, 0);
+				  	var notes = "Some notes about this event.";
+				  	var funcionSuccess = function(message) { alert("Success: " + JSON.stringify(message)); };
+				  	var funcionError = function(message) { alert("Error al crear actividad en calendario: " + message); };
+
+				  	window.plugins.calendar.createEvent("Realizar actividad", "", descripcionActividad ,startDate, endDate, funcionSuccess, funcionError);
+				} catch(err) {
+					alert("Error al crear actividad en calendario: " + err.message);
+				}
+
 				$("#actividad_" + actividad).attr("data-clasificacion", calificacion);
 				$("#actividad_" + actividad).attr("data-fecha", fechaFinal);
 				$(".logo_carga").removeClass("active");
@@ -259,27 +276,29 @@ $(document).ready(function(){
 		var usuarioNuevo = $('#txtUsuarioNuevo').val();
 		var passwrodUno = $('#txtPassword').val();
 		var passwrodDos = $('#txtConfirmarPassword').val();
-		var emailUsuarionuevo = $('#txtEmailUsuarioNuevo').val();
+		var nombreUsuarionuevo = $('#txtNombreUsuarioNuevo').val();
 
-		if (usuarioNuevo != "" && passwrodUno != "" && passwrodDos != "" && emailUsuarionuevo != "") {
+		if (usuarioNuevo != "" && passwrodUno != "" && passwrodDos != "" && nombreUsuarionuevo != "") {
 			if (passwrodUno == passwrodDos) {
 				$(".logo_carga").addClass("active");
 		        $.ajax({
-		            url: url + "Actividades/actualizar",
+		            url: url + "Usuario",
 		            type: "POST",
-		            data: { objActividad: '{"usuario": "' + usuarioNuevo + '", "clave": "' + passwrodUno + '", "email": "' + emailUsuarionuevo + '"}' },
+		            data: { objUsuario: '{"IdUsuario":"", "Nombre":"' + nombreUsuarionuevo + '", "Usuario":"' + usuarioNuevo + '", "Clave":"' + passwrodUno + '"}' },
 		            success: function(data){
 						$(".logo_carga").removeClass("active");
 						var datos = JSON.parse(data);
-						if (datos.autorizado == 1) {
-							localStorage['usuario'] = datos.idUsuario;
+						if (datos.IdUsuario != undefined && datos.IdUsuario != null && datos.IdUsuario != "" && datos.IdUsuario != 0) {
+							localStorage['usuario'] = datos.IdUsuario;
+							$(".modal_background").removeClass("active");
+							$(".modal_box").removeClass("active");
 							$("#contenedor_principal").addClass('active');
 							$("#contenedor_login").removeClass('active');
 						} else {
 							if (debug) {
-								alert(errorServer);
+								alert("Ocurrio un error creando tu usuario, intentalo mas tarde");
 							} else {
-								navigator.notification.alert(errorServer, null, appName, btnAceptar);
+								navigator.notification.alert("Ocurrio un error creando tu usuario, intentalo mas tarde", null, appName, btnAceptar);
 							}
 						}
 					},
@@ -316,14 +335,14 @@ $(document).ready(function(){
 		if (userText != "" && passwrodText != "") {
 			$(".logo_carga").addClass("active");
 	        $.ajax({
-	            url: url + "Actividades/actualizar",
+	            url: url + "Usuario/Ingresar",
 	            type: "POST",
-	            data: { objActividad: '{"usuario": "' + userText + '", "clave": "' + passwrodText + '"}' },
+	            data: { objUsuario: '{"IdUsuario":"","Nombre":"","Usuario":"' + userText + '","Clave":"' + passwrodText + '"}'},
 	            success: function(data){
 					$(".logo_carga").removeClass("active");
 					var datos = JSON.parse(data);
-					if (datos.autorizado == 1) {
-						localStorage['usuario'] = datos.idUsuario;
+					if (datos.IdUsuario != undefined && datos.IdUsuario != null && datos.IdUsuario != "" && datos.IdUsuario != 0) {
+						localStorage['usuario'] = datos.IdUsuario;
 						$("#contenedor_principal").addClass('active');
 						$("#contenedor_login").removeClass('active');
 						getActividades();

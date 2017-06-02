@@ -41,6 +41,25 @@
 	border-radius: 10px;
 }
 
+.activity_container
+{
+	width: 100%;
+	border: none;
+}
+
+.principal
+{
+	width: 90%;
+	text-align: center;
+}
+
+.secundario
+{
+	width: 10%,
+	text-align: center;
+	vertical-align: top;
+}
+
 .modal_background
 {
 	position: fixed;
