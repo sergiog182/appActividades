@@ -246,3 +246,12 @@ select
 	width: 150px;
 	height: 150px;
 }
+
+.image_header
+{
+	background-color: white;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    border: none;
+}

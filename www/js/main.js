@@ -5,7 +5,6 @@ var btnAceptar = "Aceptar";
 var debug = true;
 
 $(document).ready(function(){
-	$('#nombreApp').innerHtml = appName;
 
 	function getActividades() {
 		$(".logo_carga").addClass("active");
@@ -375,6 +374,12 @@ $(document).ready(function(){
 				
 			}
 		}
+	});
+
+	$('#btn_cerrar_sesion').click(function(){
+		localStorage.clear();
+		$("#contenedor_principal").removeClass('active');
+		$("#contenedor_login").addClass('active');
 	});
 
 });
