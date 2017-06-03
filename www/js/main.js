@@ -367,7 +367,12 @@ $(document).ready(function(){
 			if (debug) {
 				alert("Valida tus datos de ingreso");
 			} else {
-				navigator.notification.alert("Valida tus datos de ingreso", null, appName, btnAceptar);	
+				try {
+					navigator.notification.alert("Valida tus datos de ingreso", null, appName, btnAceptar);	
+				} catch (e) {
+					alert(e.message);
+				}
+				
 			}
 		}
 	});
