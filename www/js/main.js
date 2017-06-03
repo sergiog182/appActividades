@@ -2,7 +2,7 @@ var url = "http://25.8.54.211/WsActividades/";
 var errorServer = "Ocurrió un error consultando los datos del servidor";
 var appName = "Programador";
 var btnAceptar = "Aceptar";
-var debug = false;
+var debug = true;
 
 $(document).ready(function(){
 	$('#nombreApp').innerHtml = appName;
