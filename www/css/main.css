@@ -1,3 +1,10 @@
+body
+{
+    margin: 0 auto;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 400;
+}
+
 .contenedor
 {
 	display: none;
@@ -254,4 +261,31 @@ select
     width: 30px;
     height: 30px;
     border: none;
+}
+
+/* Logo de carga */
+
+.load-wrapp {
+    padding: 20px 20px 20px;
+    border-radius: 5px;
+    text-align: center;
+    color: #d8d8d8;
+    margin-top: 45%;
+}
+
+.ring-1 {
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 7px dashed #d8d8d8;
+    border-radius: 100%;
+}
+
+.load-4 .ring-1 {animation: loadingD 1.5s .3s cubic-bezier(.17,.37,.43,.67) infinite;}
+
+@keyframes loadingD {
+    0 {transform: rotate(0deg);}
+    50% {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
 }
